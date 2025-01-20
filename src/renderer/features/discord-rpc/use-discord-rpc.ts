@@ -44,7 +44,7 @@ export const useDiscordRpc = () => {
             largeImageText: song?.album || 'Unknown album',
             smallImageKey: undefined,
             smallImageText: currentStatus,
-            state: (artists && `By ${artists}`) || 'Unknown artist',
+            state: artists || 'Unknown artist',
             // I would love to use the actual type as opposed to hardcoding to 2,
             // but manually installing the discord-types package appears to break things
             type: discordSettings.showAsListening ? 2 : 0,
@@ -116,8 +116,8 @@ export const useDiscordRpc = () => {
     useEffect(() => {
         if (discordSettings.enabled) {
             let intervalSeconds = discordSettings.updateInterval;
-            if (intervalSeconds < 15) {
-                intervalSeconds = 15;
+            if (intervalSeconds < 3) {
+                intervalSeconds = 3;
             }
 
             intervalRef.current = window.setInterval(setActivity, intervalSeconds * 1000);
